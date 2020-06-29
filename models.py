@@ -7,7 +7,7 @@ db = SQLAlchemy()
 meals_orders_association = db.Table(
     "meals_orders",
     db.Column("meal_id", db.Integer, db.ForeignKey("meals.id")),
-    db.Column("order_id", db.String, db.ForeignKey("orders.id"))
+    db.Column("order_id", db.Integer, db.ForeignKey("orders.id"))
 )
 
 
@@ -43,7 +43,7 @@ class Category(db.Model):
 class Order(db.Model):
     __tablename__ = 'orders'
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.DateTime, default=func.now()) # TODO уточнить
+    date = db.Column(db.DateTime, default=func.now())
     sum = db.Column(db.Integer)
     status = db.Column(db.String(16))
     name = db.Column(db.String(64), nullable=False)
