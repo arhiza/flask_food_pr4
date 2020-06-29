@@ -17,10 +17,6 @@ def unique_mail_check(form, field):
     if db.session.query(User).filter_by(mail=field.data).first():
         raise ValidationError('Пользователь с таким емейлом уже существует')
 
-
-def password_check(form, field):
-    pass
-    #(код валидатора пароля)
     
 class LoginForm(FlaskForm):
     mail = StringField("Электропочта", [DataRequired()])
