@@ -7,7 +7,7 @@ from models import db, Meal, Category
 from app import app
 
 
-#db.create_all()
+db.create_all()
 
 
 reader = csv.reader(open("mock_data/delivery_categories.csv", "r"))
