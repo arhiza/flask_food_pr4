@@ -55,8 +55,10 @@ def render_cart():
         user = db.session.query(User).get(user_id)
         order = Order(sum=total_sum, status="новый заказ", name=form.name.data, \
                       mail=form.mail.data, phone=form.phone.data, \
-                      address=form.address.data, meals=meals, user_id=user_id)
+                      address=form.address.data, user_id=user_id) # , meals=meals
         db.session.add(order)
+        db.session.commit()
+        order.meals = meals
         db.session.commit()
         session.pop("cart")
         session.pop("total_sum")
