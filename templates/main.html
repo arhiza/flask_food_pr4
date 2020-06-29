@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Stepik Delivery{% endblock %}
+
+{% block content %}
+
+{% include "head_menu.html" %}
+
+  <main class="container mt-3">
+{% include "main_tabloid.html" %}
+    {% for cat in categories %}
+    <section>
+      <h3 class="my-4">{{ cat.title }}</h3>
+      <div class="row mt-4">
+      {% set count_meals = [0] %}
+      {% for meal in cat.meals %}
+        {% if (count_meals[0]<3) and (meal.id not in session.get("cart", [])) %}
+        {% if count_meals.append(count_meals.pop() + 1) %}{% endif %}
+        <div class="col-12 col-md-4">
+          <div class="card mb-3">
+            <img src="../static/pictures/{{ meal.picture }}" width="300" height="200" class="card-img-top" alt="">
+            <div class="card-body">
+              <div class="row ">
+                <h5 class="col-6 card-title">{{ meal.title }}</h5>
+                <h5 class="col-6 card-title text-right">{{ meal.price }} Р</h5>
+              </div>
+              <p class="card-text">{{ meal.description }}</p>
+              <a href="/addtocart/{{ meal.id }}" btn btn-danger">В корзину</a>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      {% endfor %}
+      {% if (count_meals[0]<1) %}
+          Всё из этой категории уже в вашей корзине.
+      {% endif %}
+      </div>
+    </section>
+    {% endfor %}
+  </main>
+
+{% endblock %}
+
