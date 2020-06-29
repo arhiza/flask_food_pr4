@@ -7,6 +7,9 @@ from models import db, Meal, Category
 from app import app
 
 
+db.create_all()
+
+
 reader = csv.reader(open("mock_data/delivery_categories.csv", "r"))
 test_id = db.session.query(Category).get(1)
 if test_id:
@@ -17,6 +20,7 @@ else:
         print(" ".join(row))
     db.session.commit()
     print("Информация о категориях добавлена в базу данных")
+
 
 reader = csv.reader(open("mock_data/delivery_items.csv", "r"))
 test_id = db.session.query(Meal).get(1)
